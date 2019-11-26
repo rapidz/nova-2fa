@@ -22,7 +22,7 @@ class ToolServiceProvider extends ServiceProvider
             // Publishing the configuration file.
             $this->publishes([
                 __DIR__ . '/../config/google2fa.php' => config_path('google2fa.php'),
-            ], 'screen2fa.config');
+            ], 'google2fa.config');
 
             // Publishing the migrations.
             $this->publishes([
