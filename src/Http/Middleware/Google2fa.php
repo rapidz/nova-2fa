@@ -58,9 +58,9 @@ class Google2fa
             $user2fa->recovery = json_encode($data['recovery']);
             $user2fa->save();
 
-            return response(view('google2fa::recovery', $data));
+            return response(view('google2faviews::recovery', $data));
         }
 
-        return response(view('google2fa::authenticate'));
+        return response(view('google2faviews::authenticate'));
     }
 }
