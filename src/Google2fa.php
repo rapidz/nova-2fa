@@ -62,7 +62,7 @@ class Google2fa extends Tool
         $data['google2fa_url'] = $google2fa_url;
         $data['error'] = 'Secret is invalid.';
 
-        return view('google2faviews::register', $data);
+        return view('nova-google2fa::register', $data);
     }
 
     /**
@@ -82,7 +82,7 @@ class Google2fa extends Tool
 
         $data['google2fa_url'] = $google2fa_url;
 
-        return view('google2faviews::register', $data);
+        return view('nova-google2fa::register', $data);
 
     }
 
@@ -106,7 +106,7 @@ class Google2fa extends Tool
             if ($this->isRecoveryValid($recover, json_decode(auth()->user()->user2fa->recovery, true)) === false) {
                 $data['error'] = 'Recovery key is invalid.';
 
-                return view('google2faviews::authenticate', $data);
+                return view('nova-google2fa::authenticate', $data);
             }
 
             $google2fa = new G2fa();
@@ -131,7 +131,7 @@ class Google2fa extends Tool
             $user2fa->recovery = json_encode($recoveryHashes);
             $user2fa->save();
 
-            return response(view('google2faviews::recovery', $data));
+            return response(view('nova-google2fa::recovery', $data));
         }
         if ($this->is2FAValid()) {
             $authenticator = app(Google2FAAuthenticator::class);
@@ -141,6 +141,6 @@ class Google2fa extends Tool
         }
         $data['error'] = 'One time password is invalid.';
 
-        return view('google2faviews::authenticate', $data);
+        return view('nova-google2fa::authenticate', $data);
     }
 }

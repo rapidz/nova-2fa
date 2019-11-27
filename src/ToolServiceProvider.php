@@ -15,7 +15,7 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'google2faviews');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-google2fa');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
