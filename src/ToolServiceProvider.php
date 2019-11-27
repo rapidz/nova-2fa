@@ -15,8 +15,6 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-google2fa');
-
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
             // Publishing the configuration file.
@@ -33,6 +31,7 @@ class ToolServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $this->routes();
         });
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'nova-google2fa');
     }
 
     /**
