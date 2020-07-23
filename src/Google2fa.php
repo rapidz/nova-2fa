@@ -30,7 +30,6 @@ class Google2fa extends Tool
         }
 
         $google2fa = new G2fa();
-        $google2fa->setAllowInsecureCallToGoogleApis(true);
 
         return $google2fa->verifyKey(auth()->user()->user2fa->google2fa_secret, $secret, config('google2fa.window'));
     }
@@ -50,10 +49,9 @@ class Google2fa extends Tool
             return response()->redirectTo(config('nova.path'));
         }
 
-        $google2fa = new G2fa();
-        $google2fa->setAllowInsecureCallToGoogleApis(true);
+        $google2fa = (new \PragmaRX\Google2FAQRCode\Google2FA());
 
-        $google2fa_url = $google2fa->getQRCodeGoogleUrl(
+        $google2fa_url = $google2fa->getQRCodeInline(
             config('app.name'),
             auth()->user()->email,
             auth()->user()->user2fa->google2fa_secret
@@ -71,10 +69,9 @@ class Google2fa extends Tool
      */
     public function register()
     {
-        $google2fa = new G2fa();
-        $google2fa->setAllowInsecureCallToGoogleApis(true);
+        $google2fa = (new \PragmaRX\Google2FAQRCode\Google2FA());
 
-        $google2fa_url = $google2fa->getQRCodeGoogleUrl(
+        $google2fa_url = $google2fa->getQRCodeInline(
             config('app.name'),
             auth()->user()->email,
             auth()->user()->user2fa->google2fa_secret
