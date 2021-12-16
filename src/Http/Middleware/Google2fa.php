@@ -24,7 +24,7 @@ class Google2fa
      */
     public function handle($request, Closure $next)
     {
-        if (!config('screen2fa.enabled')) {
+        if (!config('google2fa.enabled')) {
             return $next($request);
         }
         if ($request->path() === 'los/2fa/confirm' || $request->path() === 'los/2fa/authenticate'
@@ -45,9 +45,9 @@ class Google2fa
             $recovery = new Recovery();
             $secretKey = $google2fa->generateSecretKey();
             $data['recovery'] = $recovery
-                ->setCount(config('screen2fa.recovery_codes.count'))
-                ->setBlocks(config('screen2fa.recovery_codes.blocks'))
-                ->setChars(config('screen2fa.recovery_codes.chars_in_block'))
+                ->setCount(config('google2fa.recovery_codes.count'))
+                ->setBlocks(config('google2fa.recovery_codes.blocks'))
+                ->setChars(config('google2fa.recovery_codes.chars_in_block'))
                 ->toArray();
 
             User2fa::where('user_id', auth()->user()->id)->delete();
