@@ -31,7 +31,7 @@ class Google2fa extends Tool
 
         $google2fa = new G2fa();
 
-        return $google2fa->verifyKey(auth()->user()->user2fa->google2fa_secret, $secret, config('screen2fa.window'));
+        return $google2fa->verifyKey(auth()->user()->user2fa->google2fa_secret, $secret, config('google2fa.window'));
     }
 
     /**
@@ -110,14 +110,14 @@ class Google2fa extends Tool
             $recovery = new Recovery();
             $secretKey = $google2fa->generateSecretKey();
             $data['recovery'] = $recovery
-                ->setCount(config('screen2fa.recovery_codes.count'))
-                ->setBlocks(config('screen2fa.recovery_codes.blocks'))
-                ->setChars(config('screen2fa.recovery_codes.chars_in_block'))
+                ->setCount(config('google2fa.recovery_codes.count'))
+                ->setBlocks(config('google2fa.recovery_codes.blocks'))
+                ->setChars(config('google2fa.recovery_codes.chars_in_block'))
                 ->toArray();
 
             $recoveryHashes = $data['recovery'];
             array_walk($recoveryHashes, function (&$value) {
-                $value = password_hash($value, config('screen2fa.recovery_codes.hashing_algorithm'));
+                $value = password_hash($value, config('google2fa.recovery_codes.hashing_algorithm'));
             });
 
             User2fa::where('user_id', auth()->user()->id)->delete();
